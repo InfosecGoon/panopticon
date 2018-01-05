@@ -1,0 +1,77 @@
+<!-- @(#) $Id: ./etc/rules/local_rules.xml, 2011/09/08 dcid Exp $
+
+  -  Example of local rules for OSSEC.
+  -
+  -  Copyright (C) 2009 Trend Micro Inc.
+  -  All rights reserved.
+  -
+  -  This program is a free software; you can redistribute it
+  -  and/or modify it under the terms of the GNU General Public
+  -  License (version 2) as published by the FSF - Free Software
+  -  Foundation.
+  -
+  -  License details: http://www.ossec.net/en/licensing.html
+  -->
+
+
+<!-- Modified for "Building the Panopticon" by Matthew Gracie.
+
+     More information available at https://github.com/InfosecGoon/panopticon
+
+ -->
+
+<group name="local,syslog,">
+
+  <rule id="101001" level="10">
+    <if_sid>18104</if_sid>
+    <id>^4702$</id>
+    <description> Scheduled Task Updated </description>
+  </rule>   
+
+  <rule id="101002" level="10">
+    <if_sid>18104</if_sid>
+    <id>^4698$</id>
+    <description> New Scheduled Task Created </description>
+  </rule>   
+
+  <rule id="101003" level="10">
+    <if_sid>18101</if_sid>
+    <id>^1102$</id>
+    <description> Security Event Log Cleared </description>
+  </rule>   
+
+  <rule id="101004" level="10">
+    <if_sid>18104</if_sid>
+    <id>^4724$</id>
+    <description> AD password reset by administrator </description>
+  </rule>   
+
+  <rule id="101005" level="10">
+    <if_sid>18104</if_sid>
+    <id>^4723$</id>
+    <description> AD password self-reset </description>
+  </rule>   
+
+  <rule id="101006" level="10">
+    <if_sid>18101</if_sid>
+    <id>^7045$</id>
+    <description> Service Installation </description>
+  </rule>   
+
+  <rule id="101007" level="10">
+    <if_sid>18101</if_sid>
+    <id>^1022$</id>
+    <description> Software Installation </description>
+  </rule>   
+
+  <rule id="101008" level="10">
+    <if_sid>18101</if_sid>
+    <id>^1033$</id>
+    <description> Windows Installer Installation </description>
+  </rule>   
+
+   
+</group>
+
+
+<!-- EOF -->
