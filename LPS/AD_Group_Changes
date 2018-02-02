@@ -1,0 +1,21 @@
+/*
+ This will search your archived logs for group 
+ membership change events. It is intended for use
+ on DCs to catch changes to security groups. 
+ 
+ For use in Log Parser Studio by MS.
+ https://gallery.technet.microsoft.com/Log-Parser-Studio-cd458765
+*/
+
+
+SELECT 
+      timegenerated,
+      RESOLVE_SID(EXTRACT_TOKEN(Strings,0,'|')) AS Object, 
+      RESOLVE_SID(EXTRACT_TOKEN(Strings,4,'|')) AS GroupName,
+      EXTRACT_TOKEN(Strings,6,'|') AS AdminName,
+      EventID
+INTO '[OUTFILEPATH]\ADGroupChanges.csv'
+FROM '[LOGFILEPATH]'
+WHERE EventID=4728 OR EventID=4729
+
+ORDER BY timegenerated 
