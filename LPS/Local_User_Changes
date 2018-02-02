@@ -1,0 +1,26 @@
+/*
+ This will search your archived logs for user creation
+ or group membership change events. It is intended for use
+ on non-DCs to catch changes to local accounts. 
+ 
+ For use in Log Parser Studio by MS.
+ https://gallery.technet.microsoft.com/Log-Parser-Studio-cd458765
+ */
+
+SELECT
+ timegenerated,
+ RESOLVE_SID(EXTRACT_TOKEN(Strings,1,'|')) AS AccountAdded,
+ RESOLVE_SID(EXTRACT_TOKEN(Strings,4,'|')) AS GroupName,
+ RESOLVE_SID(EXTRACT_TOKEN(Strings,5,'|')) AS AdminUser,
+ EventID,
+ ComputerName
+
+
+INTO '[OUTFILEPATH]\LocalUsers.csv'
+FROM '[LOGFILEPATH]'
+
+
+WHERE
+ EventID = 4720 OR EventID = 4732
+ 
+ORDER BY TimeGenerated 
