@@ -1,0 +1,24 @@
+/*
+ This will search your archived logs for all remote desktop
+ logins (Login Type 10) and return them with the username, 
+ source IP, target computer, and time stamp.
+ 
+ For use in Log Parser Studio by MS.
+ https://gallery.technet.microsoft.com/Log-Parser-Studio-cd458765
+*/
+
+SELECT
+ timegenerated,
+ ComputerName,
+ EXTRACT_TOKEN(Strings,5,'|') AS AccountName,
+ EXTRACT_TOKEN(Strings,8,'|') AS LoginType,
+ EXTRACT_TOKEN(Strings,18,'|') AS SourceIP,
+ Strings
+
+INTO '[OUTFILEPATH]\RDP-Logins.csv'
+FROM '[LOGFILEPATH]'
+
+WHERE
+ EventID=4624 AND LoginType='10'
+ 
+ORDER BY TimeGenerated 
